@@ -80,8 +80,18 @@
       timer = null;
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var show = function (i) {
-      // 最初の切り替えで、読み込み時の演出用クラスを外す
-      if (i !== current) slider.classList.remove("is-intro");
+      // 最初の切り替えで、読み込み時の演出用クラスを外す。
+      // 外した瞬間に1枚目が消えないよう、今の見た目（透明度・ズーム）を固定してから外し、そこから切り替える
+      if (i !== current && slider.classList.contains("is-intro")) {
+        var prev = slides[current],
+          prevImg = prev.querySelector("img");
+        prev.style.opacity = getComputedStyle(prev).opacity;
+        prevImg.style.transform = getComputedStyle(prevImg).transform;
+        slider.classList.remove("is-intro");
+        void prev.offsetWidth;
+        prev.style.opacity = "";
+        prevImg.style.transform = "";
+      }
       current = (i + slides.length) % slides.length;
       slides.forEach(function (s, k) {
         s.classList.toggle("is-active", k === current);
