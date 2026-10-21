@@ -70,6 +70,54 @@
     });
   }
 
+  // メインビジュアルのスライダー：5秒ごとにフェードで切り替え。
+  // 動きを減らす設定の人には自動で切り替えない。マウスを乗せている間・別タブの間は止める
+  var slider = document.querySelector("[data-slider]");
+  if (slider) {
+    var slides = slider.querySelectorAll(".slide");
+    var dots = slider.querySelectorAll(".dots button");
+    var current = 0,
+      timer = null;
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var show = function (i) {
+      current = (i + slides.length) % slides.length;
+      slides.forEach(function (s, k) {
+        s.classList.toggle("is-active", k === current);
+        s.setAttribute("aria-hidden", k === current ? "false" : "true");
+      });
+      dots.forEach(function (d, k) {
+        d.setAttribute("aria-current", k === current ? "true" : "false");
+      });
+    };
+    var stop = function () {
+      clearInterval(timer);
+      timer = null;
+    };
+    var start = function () {
+      if (reduceMotion || timer) return;
+      timer = setInterval(function () {
+        show(current + 1);
+      }, 5000);
+    };
+    dots.forEach(function (d, k) {
+      d.addEventListener("click", function () {
+        stop();
+        show(k);
+        start();
+      });
+    });
+    slider.addEventListener("mouseenter", stop);
+    slider.addEventListener("mouseleave", start);
+    slider.addEventListener("focusin", stop);
+    slider.addEventListener("focusout", start);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop();
+      else start();
+    });
+    show(0);
+    start();
+  }
+
   // よくある質問：開いた質問を計測
   document.querySelectorAll(".fq details").forEach(function (d) {
     d.addEventListener("toggle", function () {

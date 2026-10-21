@@ -34,8 +34,8 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700;900&family=Outfit:wght@500;600;700&display=swap"
     />
-    <link rel="preload" as="image" href="assets/img/hero.webp" media="(min-width:768px)" />
-    <link rel="preload" as="image" href="assets/img/hero_sp.webp" media="(max-width:767px)" />
+    <link rel="preload" as="image" href="assets/img/hero1.webp" media="(min-width:768px)" />
+    <link rel="preload" as="image" href="assets/img/hero1_sp.webp" media="(max-width:767px)" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <script src="assets/js/main.js" defer></script>
   </head>
@@ -168,16 +168,23 @@
             </div>
           </div>
           <div class="photo">
-            <div class="img">
-              <picture
-                ><source media="(max-width:767px)" srcset="assets/img/hero_sp.webp" width="900" height="762" />
-                <img
-                  src="assets/img/hero.webp"
-                  alt="額を寄せ合って微笑むウェディング姿の二人"
-                  width="1125"
-                  height="1200"
-                  fetchpriority="high"
-              /></picture>
+            <div class="img slider" data-slider aria-roledescription="カルーセル" aria-label="メインビジュアル">
+              <div class="slide s1 is-active" role="group" aria-roledescription="スライド" aria-label="1 / 2">
+                <picture
+                  ><source media="(max-width:767px)" srcset="assets/img/hero1_sp.webp" width="900" height="762" />
+                  <img src="assets/img/hero1.webp" alt="ハートの風船を持って笑顔で寄り添う二人" width="1125" height="1200" fetchpriority="high"
+                /></picture>
+              </div>
+              <div class="slide s2" role="group" aria-roledescription="スライド" aria-label="2 / 2">
+                <picture
+                  ><source media="(max-width:767px)" srcset="assets/img/hero2_sp.webp" width="900" height="762" />
+                  <img src="assets/img/hero2.webp" alt="額を寄せ合って微笑むウェディング姿の二人" width="1125" height="1200" decoding="async"
+                /></picture>
+              </div>
+              <div class="dots">
+                <button type="button" aria-label="1枚目を表示" aria-current="true"></button>
+                <button type="button" aria-label="2枚目を表示"></button>
+              </div>
             </div>
             <div class="stat">
               <small>累計診断回答</small><b class="gtext">12<span>万件</span></b
