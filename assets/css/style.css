@@ -67,6 +67,11 @@ br.sp{display:none}
 .fv .slider .slide.is-active{opacity:1;z-index:1}
 .fv .slider .slide img{transform:scale(1.06);transition:transform 6.5s ease-out}
 .fv .slider .slide.is-active img{transform:scale(1)}
+/* 読み込み直後の1枚目にも、切り替え時と同じフェードとズームをかける */
+.fv .slider.is-intro .slide.is-active{animation:fvFadeIn 1.2s ease both}
+.fv .slider.is-intro .slide.is-active img{animation:fvZoom 6.5s ease-out both}
+@keyframes fvFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fvZoom{from{transform:scale(1.06)}to{transform:scale(1)}}
 .fv .slider .s1 img{object-position:50% 30%}
 .fv .slider .dots{position:absolute;z-index:2;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:8px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.55);backdrop-filter:blur(6px)}
 .fv .slider .dots button{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:rgba(31,45,90,.3);cursor:pointer;transition:width .3s,background .3s}
@@ -393,4 +398,5 @@ html{scroll-behavior:smooth}
 
 @media (min-width:768px) and (max-width:1279px){
   .fv .slider .dots{left:18px;transform:none}
+  .fv .slider .s2 img{object-position:20% 30%}
 }

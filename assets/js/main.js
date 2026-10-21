@@ -80,6 +80,8 @@
       timer = null;
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var show = function (i) {
+      // 最初の切り替えで、読み込み時の演出用クラスを外す
+      if (i !== current) slider.classList.remove("is-intro");
       current = (i + slides.length) % slides.length;
       slides.forEach(function (s, k) {
         s.classList.toggle("is-active", k === current);
